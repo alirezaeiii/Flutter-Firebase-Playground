@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "349550999985",
+    "project_id": "mynotes-dart-example",
+    "storage_bucket": "mynotes-dart-example.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349550999985:android:126c23783924ef6df02590",
+        "android_client_info": {
+          "package_name": "com.example.dart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU70aR1gVAuZl-rtlhPAn-Bz58jLSVg0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
