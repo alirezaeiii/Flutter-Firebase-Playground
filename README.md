@@ -1,6 +1,6 @@
-# dart
+# Flutter-Firebase-Playground
 
-A new Flutter project.
+A new Flutter project inspired by [Vandad Nahavandipoor](https://www.youtube.com/watch?v=VPvVD8t02U8).
 
 ## Getting Started
 
