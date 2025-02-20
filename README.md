@@ -1,6 +1,6 @@
 # Flutter-Firebase-Playground
 
-A new Flutter project inspired by [Vandad Nahavandipoor](https://www.youtube.com/watch?v=VPvVD8t02U8).
+A new Flutter project inspired by [Vandad Nahavandipoor](https://www.youtube.com/watch?v=IfUjHNODRoM&list=PL6yRaaP0WPkVtoeNIGqILtRAgd3h2CNpT).
 
 ## Getting Started
 
