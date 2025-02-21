@@ -1,4 +1,4 @@
-import 'package:dart/constants.dart';
+import 'package:dart/utils/constants.dart';
 import 'package:dart/services/auth/auth_service.dart';
 import 'package:dart/view/login_view.dart';
 import 'package:dart/view/notes_view.dart';

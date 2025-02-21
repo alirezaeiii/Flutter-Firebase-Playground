@@ -1,4 +1,4 @@
-import 'package:dart/constants.dart';
+import 'package:dart/utils/constants.dart';
 import 'package:dart/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 

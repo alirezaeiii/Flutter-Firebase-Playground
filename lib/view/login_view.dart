@@ -1,4 +1,4 @@
-import 'package:dart/constants.dart';
+import 'package:dart/utils/constants.dart';
 import 'package:dart/services/auth/auth_exceptions.dart';
 import 'package:dart/services/auth/auth_service.dart';
 import 'package:dart/utils/show_error_dialog.dart';
