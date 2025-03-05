@@ -1,7 +1,8 @@
 import 'package:dart/utils/constants.dart';
 import 'package:dart/services/auth/auth_service.dart';
 import 'package:dart/view/login_view.dart';
-import 'package:dart/view/notes_view.dart';
+import 'package:dart/view/notes/create_update_notes_view.dart';
+import 'package:dart/view/notes/notes_view.dart';
 import 'package:dart/view/register_view.dart';
 import 'package:dart/view/verified_email.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ void main() {
         loginRoute: (_) => const LoginView(),
         registerRoute: (_) => const RegisterView(),
         notesRoute: (_) => const NotesView(),
-        verifyEmailRoute: (_) => const VerifiedEmailView()
+        verifyEmailRoute: (_) => const VerifiedEmailView(),
+        createOrUpdateNoteRoute: (_) => const CreateUpdateNoteView()
       },
     ),
   );
