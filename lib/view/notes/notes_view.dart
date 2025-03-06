@@ -22,6 +22,11 @@ class _NotesViewState extends State<NotesView> {
     super.initState();
   }
 
+  Future<DatabaseUser> _getOrCreateUser() async {
+    final userEmail = AuthService.firebase().currentUser!.email;
+    return await _notesService.getOrCreateUser(email: userEmail);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +65,7 @@ class _NotesViewState extends State<NotesView> {
         ],
       ),
       body: FutureBuilder(
-        future: _notesService.getOrCreateUser(
-            email: AuthService.firebase().currentUser!.email),
+        future: _getOrCreateUser(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
