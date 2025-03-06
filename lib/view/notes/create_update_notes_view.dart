@@ -104,7 +104,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(
-                  hintText: 'Enter you note here...!',
+                  hintText: 'Enter you note here',
                 ),
               );
             default:

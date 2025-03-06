@@ -28,6 +28,12 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('Main UI'),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
+            },
+            icon: const Icon(Icons.add),
+          ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -53,8 +59,8 @@ class _NotesViewState extends State<NotesView> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: _notesService.getAllNotes(),
+      body: StreamBuilder(
+        stream: _notesService.allNotes,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
