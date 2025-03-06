@@ -59,29 +59,41 @@ class _NotesViewState extends State<NotesView> {
           ),
         ],
       ),
-      body: StreamBuilder(
-        stream: _notesService.allNotes,
+      body: FutureBuilder(
+        future: _notesService.getOrCreateUser(
+            email: AuthService.firebase().currentUser!.email),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              if (snapshot.hasData) {
-                final allNotes = snapshot.data as Iterable<DatabaseNote>;
-                return NotesListView(
-                  notes: allNotes,
-                  onDeleteNote: (note) async {
-                    await _notesService.deleteNote(id: note.id);
-                  },
-                  onTap: (note) {
-                    Navigator.of(context).pushNamed(
-                      createOrUpdateNoteRoute,
-                      arguments: note,
-                    );
-                  },
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
+            case ConnectionState.done:
+              return StreamBuilder(
+                stream: _notesService.allNotes,
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                    case ConnectionState.active:
+                      if (snapshot.hasData) {
+                        final allNotes =
+                            snapshot.data as Iterable<DatabaseNote>;
+                        return NotesListView(
+                          notes: allNotes,
+                          onDeleteNote: (note) async {
+                            await _notesService.deleteNote(id: note.id);
+                          },
+                          onTap: (note) {
+                            Navigator.of(context).pushNamed(
+                              createOrUpdateNoteRoute,
+                              arguments: note,
+                            );
+                          },
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    default:
+                      return const CircularProgressIndicator();
+                  }
+                },
+              );
             default:
               return const CircularProgressIndicator();
           }
