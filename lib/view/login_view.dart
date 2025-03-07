@@ -96,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
                   },
                   child: Text(context.loc.login),
                 ),
-                /*TextButton(
+                TextButton(
                   onPressed: () {
                     context.read<AuthBloc>().add(
                           const AuthEventForgotPassword(),
@@ -105,7 +105,7 @@ class _LoginViewState extends State<LoginView> {
                   child: Text(
                     context.loc.login_view_forgot_password,
                   ),
-                ),*/
+                ),
                 TextButton(
                   onPressed: () {
                     context.read<AuthBloc>().add(

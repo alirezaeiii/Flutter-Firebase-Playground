@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
     });
     //forgot password
-    /*on<AuthEventForgotPassword>((event, emit) async {
+    on<AuthEventForgotPassword>((event, emit) async {
       emit(const AuthStateForgotPassword(
         exception: null,
         hasSentEmail: false,
@@ -47,7 +47,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         hasSentEmail: didSendEmail,
         isLoading: false,
       ));
-    });*/
+    });
     // send email verification
     on<AuthEventSendEmailVerification>((event, emit) async {
       await provider.sendVerificationEmail();
