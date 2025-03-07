@@ -1,3 +1,4 @@
+import 'package:dart/extensions/buildcontext/loc.dart';
 import 'package:dart/services/auth/auth_service.dart';
 import 'package:dart/services/crud/note_service.dart';
 import 'package:dart/utils/buildcontext/get_argument.dart';
@@ -92,8 +93,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'New Note',
+        title: Text(
+          context.loc.note,
         ),
         actions: [
           IconButton(
@@ -119,8 +120,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                 controller: _textController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                decoration: const InputDecoration(
-                  hintText: 'Enter you note here',
+                decoration: InputDecoration(
+                  hintText: context.loc.start_typing_your_note,
                 ),
               );
             default:

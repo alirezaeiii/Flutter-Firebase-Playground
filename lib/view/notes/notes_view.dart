@@ -1,3 +1,4 @@
+import 'package:dart/extensions/buildcontext/loc.dart';
 import 'package:dart/menu/menu_action.dart';
 import 'package:dart/services/auth/auth_service.dart';
 import 'package:dart/services/auth/bloc/auth_bloc.dart';
@@ -34,7 +35,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Notes'),
+        title: Text(context.loc.note),
         actions: [
           IconButton(
             onPressed: () {
@@ -49,16 +50,16 @@ class _NotesViewState extends State<NotesView> {
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
                     context.read<AuthBloc>().add(
-                      const AuthEventLogOut(),
-                    );
+                          const AuthEventLogOut(),
+                        );
                   }
               }
             },
             itemBuilder: (BuildContext context) {
               return [
-                const PopupMenuItem<MenuAction>(
+                PopupMenuItem<MenuAction>(
                   value: MenuAction.logout,
-                  child: Text('Log out'),
+                  child: Text(context.loc.logout_button),
                 ),
               ];
             },
