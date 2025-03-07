@@ -1,4 +1,4 @@
-# Flutter-Firebase-Playground
+# Flutter-FirebaseAuth-CRUD-Playground
 
 A new Flutter project inspired by [Vandad Nahavandipoor](https://www.youtube.com/watch?v=IfUjHNODRoM&list=PL6yRaaP0WPkVtoeNIGqILtRAgd3h2CNpT).
 
