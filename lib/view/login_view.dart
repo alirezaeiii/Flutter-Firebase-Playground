@@ -1,8 +1,10 @@
 import 'package:dart/services/auth/auth_exceptions.dart';
-import 'package:dart/services/auth/auth_service.dart';
-import 'package:dart/utils/constants.dart';
+import 'package:dart/services/auth/bloc/auth_bloc.dart';
+import 'package:dart/services/auth/bloc/auth_event.dart';
+import 'package:dart/services/auth/bloc/auth_state.dart';
 import 'package:dart/utils/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -31,75 +33,92 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _email,
-            enableSuggestions: false,
-            autocorrect: false,
-            keyboardType: TextInputType.emailAddress,
-            decoration:
-                const InputDecoration(hintText: 'Enter your email here'),
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) async {
+        if (state is AuthStateLoggedOut) {
+          if (state.exception is InvalidCredentialAuthException) {
+            await showErrorDialog(
+              context,
+              'Invalid credential',
+            );
+          } else if (state.exception is InvalidEmailAuthException) {
+            await showErrorDialog(
+              context,
+              'Invalid email',
+            );
+          } else if (state.exception is GenericAuthException) {
+            await showErrorDialog(
+              context,
+              'Authentication failure',
+            );
+          }
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Login'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Text('Login here'),
+                TextField(
+                  controller: _email,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your email here',
+                  ),
+                ),
+                TextField(
+                  controller: _password,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your password here',
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final email = _email.text;
+                    final password = _password.text;
+                    context.read<AuthBloc>().add(
+                          AuthEventLogIn(
+                            email,
+                            password,
+                          ),
+                        );
+                  },
+                  child: const Text('Login'),
+                ),
+                /*TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventForgotPassword(),
+                        );
+                  },
+                  child: Text(
+                    context.loc.login_view_forgot_password,
+                  ),
+                ),*/
+                TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventShouldRegister(),
+                        );
+                  },
+                  child: const Text(
+                    'Not registered yet? Register here!',
+                  ),
+                )
+              ],
+            ),
           ),
-          TextField(
-            controller: _password,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration:
-                const InputDecoration(hintText: 'Enter your password here'),
-          ),
-          TextButton(
-            onPressed: () async {
-              final email = _email.text;
-              final password = _password.text;
-              try {
-                await AuthService.firebase().logIn(
-                  email: email,
-                  password: password,
-                );
-                final user = AuthService.firebase().currentUser;
-                if (user?.isEmailVerified ?? false) {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    notesRoute,
-                    (_) => false,
-                  );
-                } else {
-                  Navigator.of(context).pushNamed(verifyEmailRoute);
-                }
-              } on InvalidCredentialAuthException {
-                showErrorDialog(
-                  context,
-                  'Invalid credential',
-                );
-              } on InvalidEmailAuthException {
-                showErrorDialog(
-                  context,
-                  'Invalid email',
-                );
-              } on GenericAuthException {
-                showErrorDialog(
-                  context,
-                  'Authentication error',
-                );
-              }
-            },
-            child: const Text('Login'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                registerRoute,
-                (_) => false,
-              );
-            },
-            child: const Text('Not registered yet? Register here!'),
-          ),
-        ],
+        ),
       ),
     );
   }
